@@ -1,36 +1,19 @@
-name: Run actions_test
-
-on:
-  push:
-    paths:
-      - 'practice/week13/actions_test/**'
-      - '.github/workflows/build.yml'
-  workflow_dispatch:
+name: Check all C++ builds
+on: [push, workflow_dispatch]
 
 permissions:
   contents: read
 
 jobs:
-  run-example:
+  check:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v6
       - uses: msys2/setup-msys2@v2
         with:
           msystem: UCRT64
-          install: mingw-w64-ucrt-x86_64-gcc
+          install: git python mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-binutils
 
-      - name: Build and run
+      - name: Compile sources and link each main
         shell: msys2 {0}
-        working-directory: practice/week13/actions_test
-        run: |
-          set -e
-          shopt -s globstar
-          g++ -std=c++17 -Wall -Wextra -static -I. -Iinclude ./**/*.cpp -o game.exe
-          ./game.exe
-
-      - uses: actions/upload-artifact@v7
-        with:
-          name: actions-test-windows
-          path: practice/week13/actions_test/game.exe
-          if-no-files-found: error
+        run: python3 scripts/check_cpp.py
