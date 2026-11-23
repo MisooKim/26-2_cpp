@@ -1,0 +1,2 @@
+A file stream reads data from a file.
+C++ can read text files.

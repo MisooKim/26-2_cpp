@@ -1,0 +1,2 @@
+Deep learning uses neural networks.
+A neural network has layers.

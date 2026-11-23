@@ -1,0 +1,2 @@
+A game player moves in a map.
+The player finds items and enemies.

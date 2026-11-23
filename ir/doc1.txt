@@ -1,0 +1,2 @@
+C++ is a programming language.
+C++ supports object oriented programming.
